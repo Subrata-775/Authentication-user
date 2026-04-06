@@ -91,12 +91,15 @@ exports.login = async (req, res) => {
                 }
             )
 
-            // stringify  to obj 
+            // stringify  to obj
+            // This converts the Mongoose document → plain JavaScript object.
             const userObj = user.toObject();
+            // is because user is a Mongoose document, 
+            // not a normal JavaScript object.
             console.log(userObj);
             userObj.token = token;
             console.log(userObj);
-            userObj.password = null;
+            userObj.password = undefined;
             console.log(userObj);
             // send token with cookies 
             const option = {
