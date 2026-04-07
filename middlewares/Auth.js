@@ -36,10 +36,10 @@ exports.Auth = (req, res, next) => {
             //  req.user created → Controller uses user data
             req.user = payload
         } catch (e) {
-            return res.send(401).json({
+            return res.status(401).json({
                 success: false,
-                message: "Token In valid..."
-            })
+                message: "Token is missing..."
+            });
         }
         next();
 
@@ -91,8 +91,8 @@ exports.isAdmin = (req, res, next) => {
         next();
 
     } catch (e) {
-        console.error(error);
-        return res.send(500).json({
+        console.error(e);
+        return res.status(500).json({
             success: false,
             message: "User role is not matching"
         })
