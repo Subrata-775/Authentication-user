@@ -32,7 +32,7 @@ exports.signup = async (req, res) => {
                 message: "Error in Hassed Password"
             });
         }
-        // new user entry create
+        // new user entry create  in DB
         const newuser = await User.create({
             name, email, password: hassedPassword, role
         });

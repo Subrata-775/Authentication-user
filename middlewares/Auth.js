@@ -2,11 +2,22 @@
 
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
+
+
 // Auth Middlewares
+// Authentication
 exports.Auth = (req, res, next) => {
     try {
+
+        console.log("body", req.body.token)
+        console.log("cookie", req.cookies.token)
+        console.log("header", req.header("Authorization"))
         // extract token from body || keys||cookies
-        const token = req.body.token;
+        const token =
+            req.body.token ||
+            req.cookies.token ||
+            req.header("Authorization")?.replace("Bearer ", "");
+
         // check  token  present or not
         if (!token) {
             return res.send(401).json({
@@ -42,6 +53,9 @@ exports.Auth = (req, res, next) => {
     }
 }
 
+
+
+// Authorization
 // isStudent Middleware
 
 exports.isStudent = (req, res, next) => {
@@ -62,6 +76,8 @@ exports.isStudent = (req, res, next) => {
         })
     }
 }
+
+// Authorization
 // isAdmin Middleware
 
 exports.isAdmin = (req, res, next) => {
